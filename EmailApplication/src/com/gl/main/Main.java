@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println(
-				"Please enter the department from following\n1. Technical\n2. Admin\n3. Human Resource\n4.Legal");
+				"Please enter the department from following\n1. Technical\n2. Admin\n3. Human Resource\n4. Legal");
 		int dept = scanner.nextInt();
 		String sDepartment = "";
 
@@ -30,21 +30,23 @@ public class Main {
 		default:
 			sDepartment = "";
 			System.out.println("Unknown department!!! Please try again");
+			scanner.close();
 			System.exit(0);
 		}
 
-		//Create Employee object
 		System.out.print("Enter employee's first name: ");
 		String firstName = scanner.next();
 		System.out.print("Enter employee's last name: ");
 		String lastName = scanner.next();
+		
+		// Create Employee object
 		Employee employee = new Employee(firstName, lastName);
 
-		//Generate email and password for employee
+		// Generate and set email and password for employee
 		employee.setEmail(CredentialService.generateEmailAddress(employee, sDepartment, "gl"));
 		employee.setPassword(CredentialService.generatePassword());
 
-		//Display credentials
+		// Display credentials
 		CredentialService.showCredentials(employee);
 
 		scanner.close();

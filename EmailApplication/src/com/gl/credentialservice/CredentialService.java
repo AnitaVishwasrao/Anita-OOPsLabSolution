@@ -16,42 +16,29 @@ public final class CredentialService {
 		return no;
 	}
 
-	private static char getAlphabet(boolean getCapitalAlphabet) {
-		char alphabet = getCapitalAlphabet ? (char) getRandomNo(65, 90, true) : (char) getRandomNo(97, 122, true);
+	private static char getLetter(boolean getCapitalLetter) {
+		char alphabet = getCapitalLetter ? (char) getRandomNo(65, 90, true) : (char) getRandomNo(97, 122, true);
 		return alphabet;
 	}
 
 	public static String generatePassword() {
 		String generatedPassword = "";
-		int passwordLen = PASSWORD_LEN;
 
-		while (passwordLen > 0) {
+		while (generatedPassword.length() < PASSWORD_LEN) {
 
-			// get capital alphabet
-			generatedPassword += getAlphabet(true);
-			passwordLen--;
+			// get capital English letter
+			generatedPassword += getLetter(true);
 
-			// get small alphabet
-			if (passwordLen > 0) {
-				generatedPassword += getAlphabet(true);
-				passwordLen--;
-			}
+			// get small English letter
+			generatedPassword += getLetter(false);
 
 			// get special character
-			if (passwordLen > 0) {
-				int specialCharIndex = getRandomNo(0, SPECIAL_CHARACTERS.length(), false);
-				generatedPassword += SPECIAL_CHARACTERS.charAt(specialCharIndex);
-				passwordLen--;
-			}
+			int specialCharIndex = getRandomNo(0, SPECIAL_CHARACTERS.length(), false);
+			generatedPassword += SPECIAL_CHARACTERS.charAt(specialCharIndex);
 
 			// get number
-			if (passwordLen > 0) {
-				generatedPassword += getRandomNo(0, 9, true);
-				passwordLen--;
-			}
-
+			generatedPassword += getRandomNo(0, 9, true);
 		}
-
 		return generatedPassword;
 	}
 
@@ -62,7 +49,7 @@ public final class CredentialService {
 
 	public static void showCredentials(Employee employee) {
 		System.out.println("\nDear " + employee.getFirstName() + " your generated credentials are as follows");
-		System.out.println("Email    --->  " + employee.getEmail());
+		System.out.println("Email    ---> " + employee.getEmail());
 		System.out.println("Password ---> " + employee.getPassword());
 	}
 
